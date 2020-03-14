@@ -1,0 +1,24 @@
+{
+  "name": "emoji-progress",
+  "version": "0.0.1",
+  "description": "A cli progress-bar with the power of imagination 🌈 (  and emoji's 😻)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benji24290/emoji-progress.git"
+  },
+  "keywords": [
+    "cli",
+    "progress-bar",
+    "emoji"
+  ],
+  "author": "benji24290",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benji24290/emoji-progress/issues"
+  },
+  "homepage": "https://github.com/benji24290/emoji-progress#readme"
+}
