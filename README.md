@@ -125,4 +125,65 @@ Sets the interval time. This is the refresh rate of the progress bar and the int
 
 ## Examples
 
+### Simple 
+
+![](img/simple.gif)
+
+```javascript
+const progress = new EmojiBar({
+  start: 10,
+  end: 100,
+  unit: '😍',
+  paddingRight: 1,
+  fillerLeft: '-',
+  indicator: '😜->'
+});
+progress.start();
+setTimeout(() => {
+  progress.increase(40);
+  setTimeout(() => {
+    progress.increase(70);
+  }, 3000);
+}, 3000);
+```
+
+### Nyan Cat 
+
+![](img/nyancat.gif)
+
+```javascript
+const loader = new EmojiBar({
+  hideState: true,
+  indicator: '🐈',
+  reverse: true,
+  fillerLeft: '🌈',
+  isLoader: true,
+  autostart: true,
+  intervalTime: 100,
+});
+```
+
+### Banana 
+
 ![](img/banana.gif)
+
+```javascript
+const progress = new EmojiBar({
+  start: 10,
+  end: 100,
+  unit: '🍌',
+  fillerRight: '🍌   ',
+  fillerLeft: ' ',
+  indicator: '🦍  🐅',
+  isLoader: true,
+  autostart: true,
+  reverse: true
+});
+progress.start();
+setTimeout(() => {
+  progress.increase(40);
+  setTimeout(() => {
+    progress.increase(70);
+  }, 10000);
+}, 3000);
+```
