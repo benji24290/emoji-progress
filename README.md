@@ -5,7 +5,7 @@ A cli progress-bar with the power of imagination 🌈 ( and emoji's 😻)
 ## Progress Bar
 
 ```javascript
-const EmojiBar = require('./index');
+const EmojiBar = require('emoji-progress');
 
 const progress = new EmojiBar({
   start: 10,
@@ -24,7 +24,7 @@ setTimeout(() => {
 ## Loading Bar
 
 ```javascript
-const EmojiBar = require('./index');
+const EmojiBar = require('emoji-progress');
 
 const loader = new EmojiBar({
   hideState: true,
@@ -95,8 +95,8 @@ Sets the separator (| 10 of 100).
 #### paddingRight
 
 Sets the padding. This can be used if you the loader uses more than one line.  
-`paddingRight: 10`  
-**Default:** 5
+`paddingRight: 5`  
+**Default:** 0
 
 #### paddingRight
 
@@ -121,3 +121,8 @@ Sets the filler at the left of the indicator.
 Sets the interval time. This is the refresh rate of the progress bar and the interval of the loader  
 `intervalTime: '1000'`  
 **Default:** 200
+
+
+## Examples
+
+![](img/banana.gif)
