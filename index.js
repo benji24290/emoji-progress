@@ -1,6 +1,7 @@
 class EmojiBar {
   constructor(config) {
     //TODO check if int
+    //TODO rename state to indo
     this.startValue = config && config.start ? config.start : 0;
     this.endValue = config && config.end ? config.end : 100;
     this.isLoader = config && config.isLoader ? config.isLoader : false;
@@ -43,7 +44,7 @@ class EmojiBar {
     });
   }
   _getDrawSpace() {
-    return this.width - this._getState().length - this.paddingRight;
+    return this.width - this._getState().length - this.paddingRight - this.indicator.length;
   }
   start() {
     if (this.isLoader) {
@@ -57,10 +58,10 @@ class EmojiBar {
       const i = parseInt((this.value / this.endValue) * this.drawSpace);
       process.stdout.write(
         this._fill(i, true) +
-          this.indicator +
-          this._fill(i) +
-          this._getState() +
-          '\r'
+        this.indicator +
+        this._fill(i) +
+        this._getState() +
+        '\r'
       );
     }, this.intervalTime);
   }
@@ -71,10 +72,10 @@ class EmojiBar {
       const i = position % this.drawSpace;
       process.stdout.write(
         this._fill(i, true) +
-          this.indicator +
-          this._fill(i) +
-          this._getState() +
-          '\r'
+        this.indicator +
+        this._fill(i) +
+        this._getState() +
+        '\r'
       );
       position++;
     }, this.intervalTime);
@@ -95,9 +96,15 @@ class EmojiBar {
   }
   _fill(i, first) {
     if ((first && !this.reverse) || (!first && this.reverse)) {
-      return this.fillerLeft.repeat(i);
+      return this._repeat(i, this.fillerLeft)
     }
-    return this.fillerRight.repeat(Math.max(this.drawSpace - i - 1, 0));
+    return this._repeat(this.drawSpace - i - 1, this.fillerRight)
+  }
+  _repeat(space, filler) {
+    if (space > 0 && filler.length > 0) {
+      return filler.repeat(Math.max(parseInt(space / filler.length), 0))
+    }
+    return ''
   }
 }
 
