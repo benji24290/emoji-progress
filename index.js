@@ -11,7 +11,7 @@ class EmojiBar {
     this.indicator = config && config.indicator ? config.indicator : '❤️';
     this.unit = config && config.unit ? config.unit : '🍌';
     this.separator = config && config.separator ? config.separator : '|';
-    this.paddingRight = config && config.paddingRight ? config.paddingRight : 5;
+    this.paddingRight = config && config.paddingRight ? config.paddingRight : 0;
     this.fillerLeft = config && config.fillerLeft ? config.fillerLeft : '-';
     this.fillerRight = config && config.fillerRight ? config.fillerRight : ' ';
     this.intervalTime =
@@ -30,7 +30,7 @@ class EmojiBar {
   increase(v) {
     if (parseInt(v)) {
       this.value += v;
-      if (this.value > this.endValue) {
+      if (this.value >= this.endValue) {
         this.value = this.endValue;
         this.complete();
       }
@@ -47,6 +47,10 @@ class EmojiBar {
     return this.width - this._getState().length - this.paddingRight - this.indicator.length;
   }
   start() {
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
+    //console.clear();
     if (this.isLoader) {
       this._printLoader();
     } else {
@@ -57,25 +61,25 @@ class EmojiBar {
     this.interval = setInterval(() => {
       const i = parseInt((this.value / this.endValue) * this.drawSpace);
       process.stdout.write(
-        this._fill(i, true) +
-        this.indicator +
-        this._fill(i) +
-        this._getState() +
-        '\r'
+        this._line(i)
       );
     }, this.intervalTime);
   }
-
+  _line(i) {
+    const bar = this._fill(i, true) +
+      this.indicator +
+      this._fill(i)
+    const pr = this.paddingRight ? this.paddingRight : 0
+    const spacing = Math.max(this.width - (bar.length + this._getState().length + pr), 0)
+    //return bar + ' '.repeat(spacing) + this._getState() + ' '.repeat(this.paddingRight) + '\r'
+    return ' '.repeat(spacing) + bar + this._getState() + ' '.repeat(this.paddingRight) + '\r'
+  }
   _printLoader() {
     let position = 0;
     this.interval = setInterval(() => {
       const i = position % this.drawSpace;
       process.stdout.write(
-        this._fill(i, true) +
-        this.indicator +
-        this._fill(i) +
-        this._getState() +
-        '\r'
+        this._line(i)
       );
       position++;
     }, this.intervalTime);
@@ -85,6 +89,9 @@ class EmojiBar {
     setTimeout(() => {
       if (this.interval) {
         clearInterval(this.interval);
+        process.stdout.write(
+          '\n'
+        );
       }
     }, this.intervalTime);
   }
